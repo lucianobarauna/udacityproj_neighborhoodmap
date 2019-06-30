@@ -1,6 +1,5 @@
 # Neighborhood Map
-A Udacity Fullstack Web Developer nanodegree project. [Site app](
-https://lucianobarauna.github.io/udacityproj_neighborhoodmap/index.html)
+A Udacity Fullstack Web Developer nanodegree project.
 
 # Objectives of the project
 A single page application, built with Knockout framework, featuring Google Map and FourSquare of the malls I've visited in the state of Rio de Janeiro, Brazil. When the user clicks on the name of the Mall or searches for the ones that are already on the list is presenting the location of the same and the information of the nearby restaurants with the name and address data.
