@@ -23,6 +23,10 @@ ul {
     height: 200px;
 }
 
+#map.error {
+    background-color: rgba(177, 177, 177, 0.52);
+}
+
 /* Height 100% map */
 @media screen and (min-width: 768px) {
     .wrap > .container-fluid,

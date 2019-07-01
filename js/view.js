@@ -1,125 +1,3 @@
-// Local dos shoppings
-const localShoppings = [
-    {
-        nome: 'Shopping Grande Rio',
-        posição: {lat: -22.7977197, lng: -43.3544452},
-        id: 0,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    },
-    {
-        nome: 'Shopping Nova América',
-        posição: {lat: -22.8781756, lng: -43.2742505},
-        id: 1,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    },
-    {
-        nome: 'Carioca Shopping',
-        posição: {lat: -22.8499637, lng: -43.3132073},
-        id: 2,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    },
-    {
-        nome: 'Norte Shopping',
-        posição: {lat: -22.8864318, lng: -43.2856869},
-        id: 3,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    },
-    {
-        nome: 'Shopping Rio Sul',
-        posição: {lat: -22.9569748, lng: -43.1790104},
-        id: 4,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    },
-    {
-        nome: 'Barra Shopping',
-        posição: {lat: -22.9986759, lng: -43.3573733},
-        id: 5,
-        marcador: [],
-        visivel: true,
-        destacado: false
-    }
-];
-
-let map;
-let pinMarkPadrao;
-let pinMarkDestacado;
-let pinMarkSelecionado;
-let largeInfowindow;
-
-// Função para fazer o marcador de acordo com a cor e tamanho solicitados (crédito aula do google maps api)
-let makeMarkerIcon = function (markerColor, markerWidth, markerHeight) {
-    const markerImage = new google.maps.MarkerImage(
-        'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
-        '|40|_|%E2%80%A2',
-    new google.maps.Size(markerWidth, markerHeight),
-    new google.maps.Point(0, 0),
-    new google.maps.Point(10, 34),
-    new google.maps.Size(markerWidth, markerHeight));
-
-    return markerImage;
-}
-
-// Função para fazer aparecer o info window (crédito aula do google maps api)
-function populateInfoWindow(marker, infowindow) {
-    // Check to make sure the infowindow is not already opened on this marker.
-    if (infowindow.marker != marker) {
-        infowindow.marker = marker;
-        infowindow.setContent('<div>' + marker.title + '</div>');
-        infowindow.open(map, marker);
-        // Make sure the marker property is cleared if the infowindow is closed.
-        infowindow.addListener('closeclick',function(){
-        infowindow.setMarker = null;
-        });
-    }
-}
-
-
-var initMap = function() {
-
-	// Monta o mapa na tela
-	map = new google.maps.Map(document.getElementById('map'), {
-    	center: {lat: -22.9137531, lng: -43.5860658},
-    	zoom: 10,
-    	mapTypeControl: false
-    });
-
-	// Carrega 3 tipos de pin
-	pinMarkPadrao = makeMarkerIcon('F44336', 21, 34);
-	pinMarkDestacado = makeMarkerIcon('FFC107', 21, 34);
-    pinMarkSelecionado = makeMarkerIcon('4CAF50', 25, 41);
-
-    largeInfowindow = new google.maps.InfoWindow();
-
-    // Coloca marcadores dos lugares iniciais no mapa
-    for (let i = 0; i < localShoppings.length; i++) {
-    	let marcador = new google.maps.Marker({
-          position: localShoppings[i].posição,
-          map: map,
-          title: localShoppings[i].nome,
-          animation: google.maps.Animation.DROP,
-          icon: pinMarkPadrao,
-          id: i
-        });
-
-        // Função para selecionar o lugar na lista
-        marcador.addListener('click', function() {
-            lugar = shoppRest.lugarLista()[this.id];
-            shoppRest.selecionarLugar(lugar);
-        });
-
-    	localShoppings[i].marcador.push(marcador);
-    }
-}
 
 // Construtor para lista de lugares
 const Lugar = function(data){
@@ -141,6 +19,7 @@ const Restaurante = function(data){
     this.telefone = ko.observable(data.contact.formattedPhone);
 }
 
+// View
 const ViewModel = function() {
     const self = this;
 
@@ -151,7 +30,7 @@ const ViewModel = function() {
     this.restaurantes = ko.observableArray([]);
 
     // Coloca todos os dados iniciais na array osbservavel
-    localShoppings.forEach(function(lugarItem){
+    localTarget.forEach(function(lugarItem){
         self.lugarLista.push( new Lugar(lugarItem) );
     });
 
@@ -221,7 +100,3 @@ const ViewModel = function() {
 
 shoppRest = new ViewModel();
 ko.applyBindings(shoppRest);
-
-
-
-
